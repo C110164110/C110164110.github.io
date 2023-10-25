@@ -99,17 +99,18 @@
         startItem = perPage * (page - 1)
         endItem = page * perPage
       }
-      // console.log('startItem:' + startItem, 'endItem:' + endItem, 'totalPage:' + totalPage);
 
-      var tempHTML = ''
+      var tempHTML = '';
       for (var i = startItem; i < endItem; i++) {
-        var name = selected[i].Name
-        var zone = selected[i].Zone
-        var openTime = selected[i].Opentime
-        var add = selected[i].Add
-        var tel = selected[i].Tel
-        var ticket = selected[i].Ticketinfo
-        var picture = selected[i].Picture1
+        var name = selected[i].Name;
+        var zone = selected[i].Zone;
+        var openTime = selected[i].Opentime;
+        var address = selected[i].Add;
+        var tel = selected[i].Tel;
+        var ticket = selected[i].Ticketinfo;
+        var picture = selected[i].Picture1;
+        var googleMapLink = 'https://www.google.com/maps?q=' + encodeURIComponent(address);
+    
         if (ticket == '') {
           tempHTML +=
             '<li class="item"><div class="image-wrap"><div class="photo"><img src="' +
@@ -120,11 +121,9 @@
             zone +
             '</div></div></div><div class="content-wrap"><p class="open-time"><i class="far fa-clock"></i>' +
             openTime +
-            '</p><p class="address"><i class="fas fa-map-marker-alt"></i>' +
-            add +
-            '</p><p class="tel"><i class="fas fa-mobile-alt"></i>' +
-            tel +
-            '</p></div></li>'
+            '</p><p class="address"><i class="fas fa-map-marker-alt"></i><a href="' +
+            googleMapLink + '" target="_blank">' + address + '</a></p><p class="tel"><i class="fas fa-mobile-alt"></i><a href="tel:' +
+            tel + '">' + tel + '</a></p></div></li>';
         } else {
           tempHTML +=
             '<li class="item"><div class="image-wrap"><div class="photo"><img src="' +
@@ -135,18 +134,16 @@
             zone +
             '</div></div><div class="ticket-wrap"><div class="triangle"></div><i class="far fa-star"></i><span>免費參觀</span></div></div><div class="content-wrap"><p class="open-time"><i class="far fa-clock"></i>' +
             openTime +
-            '</p><p class="address"><i class="fas fa-map-marker-alt"></i>' +
-            add +
-            '</p><p class="tel"><i class="fas fa-mobile-alt"></i>' +
-            tel +
-            '</p></div></li>'
+            '</p><p class="address"><i class="fas fa-map-marker-alt"></i><a href="' +
+            googleMapLink + '" target="_blank">' + address + '</a></p><p class="tel"><i class="fas fa-mobile-alt"></i><a href="tel:' +
+            tel + '">' + tel + '</a></p></div></li>';
         }
       }
-      infoContent.innerHTML = tempHTML
-      currentPage = page
-      renderPage()
-      selectedPageBtn()
-      selectedPageBtn()
+    
+      infoContent.innerHTML = tempHTML;
+      currentPage = page;
+      renderPage();
+      selectedPageBtn();
     }
 
     function renderPage() {
