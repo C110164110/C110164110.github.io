@@ -72,6 +72,89 @@
             <i class="fas fa-angle-down"></i>
           </div>
         </div>
+      <div>
+        <font color="6a8984">
+          <h1>
+            <i id="weather-icon" class="fas"></i>
+            <p id="weather-info">正在獲得天氣資訊...</p>
+            <div id="weather-reminder">
+              <p id="reminder-text">天氣提醒：</p>
+            </div>
+          </h1>
+        </font>
+        
+        <script>
+          // 用你的API替换YOUR_API_KEY
+          const apiKey = '3ebaae58050a411c964120225231110';
+          // 用你想查尋的城市或位置替换CITY_NAME
+          const city = 'kaohsiung';
+        
+          // 使用Fetch API发送GET请求
+          fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`)
+            .then(response => response.json())
+            .then(data => {
+              const weatherDescription = data.current.condition.text;
+        
+              const weatherDescriptions = {
+                'Partly cloudy': '局部多雲',
+                'Cloudy': '多雲',
+                'Sunny': '晴朗',
+                'Rainy': '下雨',
+                'Snowy': '下雪',
+                'Foggy': '有霧',
+                'Windy': '有風',
+                'Thunderstorms': '雷暴',
+                'Hail': '冰雹',
+                'Tornado': '龍捲風'
+                // 添加其他天氣裝況翻譯...
+              };
+        
+              const weatherIconClasses = {
+                'Partly cloudy': 'fa-cloud-sun',
+                'Cloudy': 'fa-cloud',
+                'Sunny': 'fa-sun',
+                'Rainy': 'fa-cloud-showers-heavy',
+                'Snowy': 'fa-snowflake',
+                'Foggy': 'fa-smog',
+                'Windy': 'fa-wind',
+                'Thunderstorms': 'fa-bolt',
+                'Hail': 'fa-cloud-hail',
+                'Tornado': 'fa-wind-tornado'
+                // 添加其他天气状况的图标...
+              };
+        
+              const chineseWeatherDescription = weatherDescriptions[weatherDescription];
+              const weatherIconClass = weatherIconClasses[weatherDescription];
+        
+              const weatherInfo = `天氣: ${chineseWeatherDescription}<br>温度: ${data.current.temp_c}°C`;
+              document.getElementById('weather-info').innerHTML = weatherInfo;
+        
+              const weatherReminder = document.getElementById('weather-reminder');
+              const reminderText = document.getElementById('reminder-text');
+        
+              // 在获取天气信息后，添加以下代码以显示提醒
+              if (chineseWeatherDescription) {
+                reminderText.textContent = `天氣提醒：今天是${chineseWeatherDescription}，請注意天氣變化，適當裝備。`;
+                const backgroundColors = {
+                  'Partly cloudy': 'no',
+                  'Cloudy': 'no',
+                  'Sunny': 'no',
+                  'Rainy': 'no',
+                  'Snowy': 'no',
+                  'Windy': 'no',
+                };
+                weatherReminder.style.backgroundColor = backgroundColors[weatherDescription] || '#6a8984';
+              }
+            })
+            .catch(error => {
+              console.error('發生錯誤：', error);
+              document.getElementById('weather-info').innerHTML = '無法獲得天氣資訊';
+            });
+        </script>
+        
+        
+      
+      </div>
         <div class="container">
           <h2 class="zone-name"></h2>
           <ul class="info">
