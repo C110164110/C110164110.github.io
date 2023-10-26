@@ -131,21 +131,22 @@
         
               const weatherReminder = document.getElementById('weather-reminder');
               const reminderText = document.getElementById('reminder-text');
-        
-              // 在获取天气信息后，添加以下代码以显示提醒
+              
+              
               if (chineseWeatherDescription) {
-                reminderText.textContent = `天氣提醒：今天是${chineseWeatherDescription}，可以準備遠足或郊遊。`;
-                const backgroundColors = {
-                  'Partly cloudy': 'no',
-                  'Cloudy': 'no',
-                  'Sunny': 'no',
-                  'Rainy': 'no',
-                  'Snowy': 'no',
-                  'Windy': 'no',
-                };
-                weatherReminder.style.backgroundColor = backgroundColors[weatherDescription] || '#6a8984';
-              }
-            })
+  let reminderText = '';
+
+  if (weatherDescription === 'Rainy') {
+    reminderText = '記得帶雨具！';
+  } else if (weatherDescription === 'Snowy') {
+    reminderText = '記得準備好防寒衣物。';
+  } else {
+    reminderText = '可以準備遠足或郊遊。';
+  }
+
+  weatherReminder.textContent = reminderText;
+}
+            
             .catch(error => {
               console.error('發生錯誤：', error);
               document.getElementById('weather-info').innerHTML = '無法獲得天氣資訊';
