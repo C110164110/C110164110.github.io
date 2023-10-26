@@ -132,9 +132,9 @@
               const weatherReminder = document.getElementById('weather-reminder');
               const reminderText = document.getElementById('reminder-text');
               
-              
+              // 在获取天气信息后，添加以下代码以显示提醒
               if (chineseWeatherDescription) {
-  let reminderText = '';
+                 let reminderText = '';
 
   if (weatherDescription === 'Rainy') {
     reminderText = '記得帶雨具！';
@@ -146,6 +146,12 @@
 
   weatherReminder.textContent = reminderText;
 }
+            })
+            .catch(error => {
+              console.error('發生錯誤：', error);
+              document.getElementById('weather-info').innerHTML = '無法獲得天氣資訊';
+            });
+新增多一點天氣提醒 不用加今天是什麼天氣 直接停醒就好 例如帶雨具之類的 然後不要有字體顏色
             
             .catch(error => {
               console.error('發生錯誤：', error);
