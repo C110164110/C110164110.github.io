@@ -119,7 +119,8 @@ fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`)
                 'Tornado': 'fa-wind-tornado'
                 // 添加其他天氣圖示...
               };
-              const weatherIconClass = weatherIconClasses[weatherDescription];
+            const weatherIconClass = weatherIconClasses[weatherDescription];
+document.getElementById('weather-icon').classList.add(weatherIconClass);
 
     const chineseWeatherDescription = weatherDescriptions[weatherDescription];
     const weatherInfo = `天氣: ${chineseWeatherDescription}<br>温度: ${data.current.temp_c}°C`;
