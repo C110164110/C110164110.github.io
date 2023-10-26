@@ -84,77 +84,53 @@
         </font>
         
         <script>
-          // 用你的API替换YOUR_API_KEY
           const apiKey = '3ebaae58050a411c964120225231110';
-          // 用你想查尋的城市或位置替换CITY_NAME
-          const city = 'kaohsiung';
-        
-          // 使用Fetch API发送GET请求
-          fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`)
-            .then(response => response.json())
-            .then(data => {
-              const weatherDescription = data.current.condition.text;
-        
-              const weatherDescriptions = {
-                'Partly cloudy': '局部多雲',
-                'Cloudy': '多雲',
-                'Sunny': '晴朗',
-                'Rainy': '下雨',
-                'Snowy': '下雪',
-                'Foggy': '有霧',
-                'Windy': '有風',
-                'Thunderstorms': '雷暴',
-                'Hail': '冰雹',
-                'Tornado': '龍捲風'
-                // 添加其他天氣裝況翻譯...
-              };
-        
-              const weatherIconClasses = {
-                'Partly cloudy': 'fa-cloud-sun',
-                'Cloudy': 'fa-cloud',
-                'Sunny': 'fa-sun',
-                'Rainy': 'fa-cloud-showers-heavy',
-                'Snowy': 'fa-snowflake',
-                'Foggy': 'fa-smog',
-                'Windy': 'fa-wind',
-                'Thunderstorms': 'fa-bolt',
-                'Hail': 'fa-cloud-hail',
-                'Tornado': 'fa-wind-tornado'
-                // 添加其他天氣圖示...
-              };
-        
-              const chineseWeatherDescription = weatherDescriptions[weatherDescription];
-              const weatherIconClass = weatherIconClasses[weatherDescription];
-        
-              const weatherInfo = `天氣: ${chineseWeatherDescription}<br>温度: ${data.current.temp_c}°C`;
-              document.getElementById('weather-info').innerHTML = weatherInfo;
-        
-              const weatherReminder = document.getElementById('weather-reminder');
-              const reminderText = document.getElementById('reminder-text');
-              
-              // 在获取天气信息后，添加以下代码以显示提醒
-              if (chineseWeatherDescription) {
-                 let reminderText = '';
+const city = 'kaohsiung';
 
-  if (weatherDescription === 'Rainy') {
-    reminderText = '記得帶雨具！';
-  } else if (weatherDescription === 'Snowy') {
-    reminderText = '記得準備好防寒衣物。';
-  } else {
-    reminderText = '可以準備遠足或郊遊。';
-  }
+fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`)
+  .then(response => response.json())
+  .then(data => {
+    const weatherDescription = data.current.condition.text;
 
-  weatherReminder.textContent = reminderText;
-}
-            })
-            .catch(error => {
-              console.error('發生錯誤：', error);
-              document.getElementById('weather-info').innerHTML = '無法獲得天氣資訊';
-            });
-            .catch(error => {
-              console.error('發生錯誤：', error);
-              document.getElementById('weather-info').innerHTML = '無法獲得天氣資訊';
-            });
+    const weatherDescriptions = {
+      'Partly cloudy': '局部多雲',
+      'Cloudy': '多雲',
+      'Sunny': '晴朗',
+      'Rainy': '下雨',
+      'Snowy': '下雪',
+      'Foggy': '有霧',
+      'Windy': '有風',
+      'Thunderstorms': '雷暴',
+      'Hail': '冰雹',
+      'Tornado': '龍捲風'
+      // 添加其他天氣裝況翻譯...
+    };
+
+    const chineseWeatherDescription = weatherDescriptions[weatherDescription];
+    const weatherInfo = `天氣: ${chineseWeatherDescription}<br>温度: ${data.current.temp_c}°C`;
+    document.getElementById('weather-info').innerHTML = weatherInfo;
+
+    const weatherReminder = document.getElementById('weather-reminder');
+    const reminderText = document.getElementById('reminder-text');
+
+    if (chineseWeatherDescription) {
+      let reminderText = '';
+
+      if (weatherDescription === 'Rainy') {
+        reminderText = '記得帶雨具！';
+      } else if (weatherDescription === 'Snowy') {
+        reminderText = '記得準備好防寒衣物。';
+      } else {
+        reminderText = '可以準備遠足或郊遊。';
+      }
+
+      weatherReminder.textContent = reminderText;
+    }
+  })
+  .catch(error => {
+    console.error('發生錯誤：', error);
+    document.getElementById('weather-info').innerHTML = '無法獲得天氣資訊';
+  });
         </script>
         
         
