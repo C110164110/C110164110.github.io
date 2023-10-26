@@ -105,6 +105,22 @@ fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`)
       'Tornado': '龍捲風'
       // 添加其他天氣裝況翻譯...
     };
+    const weatherIconClasses = {
+                'Partly cloudy': 'fa-cloud-sun',
+                'Cloudy': 'fa-cloud',
+                'Sunny': 'fa-sun',
+                'Rainy': 'fa-cloud-showers-heavy',
+                'Snowy': 'fa-snowflake',
+                'Foggy': 'fa-smog',
+                'Windy': 'fa-wind',
+                'Thunderstorms': 'fa-bolt',
+                'Hail': 'fa-cloud-hail',
+                'Tornado': 'fa-wind-tornado'
+                // 添加其他天氣圖示...
+              };
+        
+              const chineseWeatherDescription = weatherDescriptions[weatherDescription];
+              const weatherIconClass = weatherIconClasses[weatherDescription];
 
     const chineseWeatherDescription = weatherDescriptions[weatherDescription];
     const weatherInfo = `天氣: ${chineseWeatherDescription}<br>温度: ${data.current.temp_c}°C`;
